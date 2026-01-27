@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="About">
+        <meta name="Author" conent="Morgan Speicher">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>One-Page Personal Site</title>
+        <style>
+            nav {
+                float:right;
+                padding: 0 10px 10px 10px;
+            }
+            nav a {
+                text-decoration: none;
+                padding: 10px;
+                color: rgb(255, 255, 255);
+                display: inline-block;
+            }
+            body {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                background-color: rgb(255, 255, 255);
+            }
+            h1 {
+                color: rgb(255, 255, 255);
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            p {
+                text-align: center;
+                color: rgb(255, 255, 255);
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+            button {
+                margin: 10px;
+                border: none;
+                background-color: rgb(121, 133, 129);
+            }
+            /* Extra small devices (phones, default styles) */
+            .about {
+                width: 100%;
+            }
+            /* Small devices (portrait tablets and large phones, 600px and up) */
+            @media only screen and (min-width: 600px) {
+                .about {
+                    width: 80%;
+                }
+            }
+            /* Medium devices (landscape tablets, 768px and up) */
+            @media only screen and (min-width: 768px) {
+                .about {
+                    width: 70%;
+                }
+            }
+            /* Large devices (laptops/desktops, 992px and up) */
+            @media only screen and (min-width: 992px) {
+                .about {
+                    width: 60%;
+                }
+            }
+            .navbar {
+                display: flex;
+                justify-content: right;
+                background-color: rgb(255, 255, 255);
+                width: 100%;
+                z-index: 1000;
+            }
+            .about {
+                width: 50%;
+                padding: 15px 30px 30px 30px;
+                margin: 17px 0;
+                background-color: rgb(121, 133, 129);
+                box-sizing: border-box;
+                text-align: center;
+                margin: 0 auto;
+            }
+            .about img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 100%;
+                height: auto;
+            }
+            .container {
+                position: absolute;
+                text-align: center;
+                color: white;
+            }
+            .centered {
+                position: absolute;
+                top: 3em;
+                left: 3.8em;
+                transform: translate(-50%, -50%);
+                color: rgb(255, 255, 255);
+                text-align: center;
+                font-family: cursive;
+                font-size: 13vw;
+                
+            }
+            .parallax {
+                background-image: url("./HW1/images/pattern.jpg");
+                height: 100%;
+                
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .ImageContainer {
+                background-size: cover;
+                z-index: 1;
+            }
+            #navBar {
+                position: sticky;
+                top: 0;
+            }
+
+        </style>
+    </head>
+    <!--https://morganspeicher.github.io/MART441-->
+    <body>
+        <nav class="navbar" id="navBar">
+            <button class="button"><a style="float: right; padding: 10px" href="#About"><span class="underline">ABOUT</span></a></button>
+            <button class="button"><a style="float: right; padding: 10px" href="#Seal"><span class="underline">EXTRA</span></a></button>
+            <button class="button"><a style="float: right; padding: 10px" href="#Game"><span class="underline">GAME MEMORY</span></a></button>
+        </nav>
+
+        <br>
+        <br>
+        <hr style="width: 100%; margin: auto; position: sticky; top: 67px;"/>
+        
+        <div class="ImageContainer">
+            <img src="./HW1/images/hero image.jpeg" alt="hero image" style="width:100%" height="auto">
+            <div class="centered">Morgan Speicher</div>
+        </div>
+        
+        <div class="parallax">
+            <!-- About Section -->
+            <br>
+            <br>
+            <div class="about-section">
+
+                <div class="about">
+                    <h1 style="text-align: center;" id="About">About Me</h1>
+                    <img src="./HW1/images/image.jpeg" alt="Photo of Morgan Speicher">
+                    <p>
+                        Hello I'm Morgan! I love to sew and experiment with all kinds of crafts in my free time.
+                        I am a college student studying Media Arts with a focus in Motion Graphic Design.
+                        I love sci-fi movies and take a lot of my creative inspiration from them.
+                    </p>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <!-- Interests Section -->
+            <div class="about-section">
+
+                <div class="about">
+                    <h1 style="text-align: center;" id="Seal">Seals!</h1>
+                    <img src="./HW1/images/seal.JPG" alt="Photo of Seal">
+                    <p>
+                        I also have a strange obsession for seals! They are such cute and obscenely round things that make me laugh a lot. I have lots of seal
+                        plushies and other merchandise, you could call them my spirit animal.
+                    </p>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <!-- Game Memory Section -->
+            <div class="about-section">
+
+                <div class="about">
+                    <h1 style="text-align: center;" id="Game">Game Memory</h1>
+                    <img src="./HW1/images/game.JPG" alt="Photo of Sky: COTL">
+                    <p>
+                        Pictured above is a screenshot I took from my favorite game, Sky: Children of the Light. I have great memories meeting people
+                        who I'm still friends with on Instagram today. While I don't play much anymore, everytime I return to the game it brings me back to my 
+                        middle school / high school days in a comforting nostalgic way.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,3 @@
+Personal Reflection:
+This week we worked on creating a one-page personal site. I did my best to implement parallax scrolling, which was something new! I'm happy with the site but as I learn more there are definetnly new things I would like to adjust.
+One of the things that challenged me was implementing break points, I didn't remember much on the topic from the last semester so really pushed me on trying to figure it out.
