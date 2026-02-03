@@ -1,23 +1,77 @@
+<!--
+Use if statements
+Use variables
+Use function(s)
+Use addition or concatenation
+Include at least three choices in your story
+Include images, colors, and fonts via an external CSS stylesheet
+Each choice should update something in the DOM
+Use ChatGPT, CoPilot, or Gemini to recreate the homework assignment, then reflect on the result:
+What did you like?
+What didn’t you like?
+Include a ReadMe discussing your successes, challenges, and how you overcame them
+-->
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Homework 3 Web Page</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Choose Your Own Adventure">
+        <meta name="Author" content="Morgan Speicher">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chose Your Own Adventure</title>
 
-    <!--Style Tag to define CSS for the background color of the page-->
-    <style>
-        body {
-          background-color: #ffefef;
-        }
-      </style>
-  </head>
+        <link rel="stylesheet" href="./HW4/style.css">
+    </head>
 
-  <body>
-    <!--Image tag to define and place an image in a local folder onto the page-->
-    <img src="./HW3/images/background.png" alt="hero image" style="width:100%" height="auto">
+    <body>
+        <!--Creating an image container for the hero image and text-->
+        <div class="imageContainer">
+            <img src="./HW4/images/background.jpeg" alt="hero image" style="width:100%" height="auto">
+        
+            <div class="centered">
+                Choose Your Own Adventure
+                <hr class="heroLine">
+                <div class="subHeadingText">Scroll Down to Begin</div>
+            </div>
+        </div>
 
-    <!--Script tag to link the java file to the idex file-->
-    <script src="./HW3/script.js"></script>
+        <!--Creating a "block" for the text and DOM updates to go, with a color for pazaz-->
+        <div class="coloredBlock">
+            <img src="./HW4/images/seal.png" alt="seal image" style="width:30%" height="auto">
 
-  </body>
+            <p class="headerBlockText">
+                A Little About The Story:
+            </p>
+            <p class="blockText">
+                Imagine you are a harbor seal living out your life in the ocean. Your ultimate goal is to live a happy life and make lots of other seal friends.
+                In this adventure, you must imagine what life is like as a big seal and make choices that pursue your ultimate goal.
+                <br>
+                "Gyu!"
+            </p>
+        </div>
+
+        <!--This block section is where the JS is targeting its updates-->
+        <div class="coloredBlock">
+            <img src="./HW4/images/sealSunBathing.png" alt="seal sunbathing" style="width:30%" height="auto">
+            
+            <p class="headerBlockTextAdventure"></p>
+
+            <p class="blockTextAdventure"></p>
+
+        </div>
+
+        <!--Forgot code needed to be on one page! This is a link to another page where the DOM updates were happening, but I didn't want to delete anything so I just commented it out :)-->
+        <!-- 
+            <div class="coloredBlock">
+                <p class="blockText">
+                    <a href="./HW4/adventure.html">Click Here to Start the Adventure!</a>
+                </p>
+            </div>
+        -->
+
+        <!--Link to the JS file-->
+        <script src="./HW4/script.js"></script>
+
+    </body>
 </html>

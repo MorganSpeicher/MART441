@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DOM Test</title>
+  </head>
+  <body>
+    <div id="message">Original text</div>
+    <script>
+        function changeText() {
+          document.getElementById("message").innerHTML = "Changed by a function who's favorite snack is a banana!";
+        }
+      
+        changeText();
+    </script>
+
+    <!--Today I re-learned that javascript functions have to be called in order to execute, I totally forgot that!-->
+
+  </body>
+</html>
