@@ -1,6 +1,8 @@
+//Initialize variables
 let gameStep = "start";
 let fish = 1;
 
+//Create a function that displays emojis and updates text for how many fish the user decides to eat through a looping function
 function fishDisplay(count) {
     let result = "";
     for (let i = 0; i < count; i++) {
@@ -9,6 +11,7 @@ function fishDisplay(count) {
     return result;
 }
 
+//Create a function that initializes the start of the game and resets all elements when restarted
 function Start() {
     gameStep = "start";
     fish = 1;
@@ -26,17 +29,21 @@ function Start() {
     block.style.color = "white"
 }
 
+//Call the start function to start the game
 Start();
 
+//Containing function that checks true/false statements based off of user input into text field, updates appropriate text based off of answer
 function stepOne() {
     const block = document.querySelector('.blockTextAdventure');
     const currentText = document.getElementById("txtName").value;
 
+    //Checks to see if players calls to restart the game, then runs restart function
     if (currentText === "Restart") {
         Start();
         return;
     }
 
+    //if/else statements that check where the player is at in the game and what they enter into the text field, that way the game knows where to send the player next
     if(gameStep === "start" && currentText === "Start") {
         document.getElementById("storyImage").src = "./HW5/images/harpSeal.webp";
         block.textContent = 
