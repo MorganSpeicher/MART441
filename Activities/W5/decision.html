@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <label>Enter a temperature:</label><br>
+    <input id="tempInput" type="number"><br>
+    <button onclick="makeDecision();">Decide</button>
+
+    <div id="output"></div>
+
+    <script>
+      function makeDecision() {
+        var temp =
+        document.getElementById("tempInput").value;
+
+        console.log(temp);
+
+        var message = "";
+
+        if (temp < 40) {
+            message = "It's cold outside.";
+        } else {
+            message = "It's nice out!";
+        }
+
+        document.getElementById("output").innerHTML = "";
+
+        for (var i = 0; i < 3; i++) {
+
+        var chance = Math.floor(Math.random() * 10);
+
+        if (chance < 5) {
+            document.getElementById("output").innerHTML +=
+            "Stay inside.<br>";
+        } else {
+            document.getElementById("output").innerHTML +=
+            "Go outside!<br>";
+        }
+
+        }
+      }
+    </script>
+
+    <!--The part of this that felt easiest was how variable and variable input worked, a lot of this information was a refresher from Creative Coding 1. :)-->
+
+  </body>
+</html>

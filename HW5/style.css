@@ -1,0 +1,105 @@
+/* Extra small devices (phones, default styles) */
+.about {
+    width: 100%;
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .about {
+        width: 80%;
+    }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .about {
+        width: 70%;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .about {
+        width: 60%;
+    }
+}
+
+.imageContainer {
+    background-size: cover;
+    position: relative;
+}
+
+.centered {
+    position: absolute;
+    top: 1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    font-family: cursive;
+    font-size: 10vw;
+    line-height: 1.2;
+    width: 80vw;
+    max-width: 1200px;
+    
+}
+
+.subHeadingText {
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    font-size: 2vw;
+}
+
+.heroLine {
+    width: 90%;
+    height: 4px;
+    background-color: white;
+    border: none;
+    margin: 1.5rem auto 2rem;
+}
+
+.coloredBlock {
+    background-color: #000000;
+    padding: 5rem 4rem;
+    text-align: center;
+    color: white;
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.blockText {
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin: 1em auto;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.headerBlockText {
+    font-size: 2rem;
+    font-family: cursive;
+    max-width: 800px;
+    margin: 0 auto 1em;
+    line-height: 1.8;
+}
+
+/*This section is the class selectors that the JS is targeting to update the DOM on the html page*/
+.blockTextAdventure {
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin: 1em auto;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+.headerBlockTextAdventure {
+    font-size: 2rem;
+    font-family: cursive;
+    max-width: 800px;
+    margin: 0 auto 1em;
+    line-height: 1.8;
+}
+
+/* Link color to second html page, no longer needed
+a {
+    color: white;
+}
+*/

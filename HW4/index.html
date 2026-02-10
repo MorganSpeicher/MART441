@@ -1,13 +1,15 @@
 <!--
-Get user input from textboxes
-Include at least five different decisions in the story
-Use if / else if / else and/or switch statements
-Use at least one loop: for, while, or do-while
-Create and call functions that take parameters
-Have at least one function return a value
-Update styles and images from your JavaScript
-Allow the user to restart the story
-Use Generative AI to create a similar piece, and reflect on the experience
+Use if statements
+Use variables
+Use function(s)
+Use addition or concatenation
+Include at least three choices in your story
+Include images, colors, and fonts via an external CSS stylesheet
+Each choice should update something in the DOM
+Use ChatGPT, CoPilot, or Gemini to recreate the homework assignment, then reflect on the result:
+What did you like?
+What didn’t you like?
+Include a ReadMe discussing your successes, challenges, and how you overcame them
 -->
 
 <!DOCTYPE html>
@@ -19,13 +21,13 @@ Use Generative AI to create a similar piece, and reflect on the experience
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chose Your Own Adventure</title>
 
-        <link rel="stylesheet" href="./HW5/style.css">
+        <link rel="stylesheet" href="./HW4/style.css">
     </head>
 
     <body>
         <!--Creating an image container for the hero image and text-->
         <div class="imageContainer">
-            <img src="./HW5/images/background.jpeg" alt="hero image" style="width:100%" height="auto">
+            <img src="./HW4/images/background.jpeg" alt="hero image" style="width:100%" height="auto">
         
             <div class="centered">
                 Choose Your Own Adventure
@@ -36,7 +38,7 @@ Use Generative AI to create a similar piece, and reflect on the experience
 
         <!--Creating a "block" for the text and DOM updates to go, with a color for pazaz-->
         <div class="coloredBlock">
-            <img src="./HW5/images/seal.png" alt="seal image" style="width:30%" height="auto">
+            <img src="./HW4/images/seal.png" alt="seal image" style="width:30%" height="auto">
 
             <p class="headerBlockText">
                 A Little About The Story:
@@ -51,19 +53,25 @@ Use Generative AI to create a similar piece, and reflect on the experience
 
         <!--This block section is where the JS is targeting its updates-->
         <div class="coloredBlock">
-            <img id="storyImage" src="./HW5/images/sealSunBathing.png" alt="seal sunbathing" style="width:30%" height="auto">
+            <img src="./HW4/images/sealSunBathing.png" alt="seal sunbathing" style="width:30%" height="auto">
             
             <p class="headerBlockTextAdventure"></p>
 
             <p class="blockTextAdventure"></p>
 
-            <input id="txtName" type="text"><br>
-            <button onclick="stepOne();" id="btnSubmit">Submit</button><br>
-
         </div>
 
+        <!--Forgot code needed to be on one page! This is a link to another page where the DOM updates were happening, but I didn't want to delete anything so I just commented it out :)-->
+        <!-- 
+            <div class="coloredBlock">
+                <p class="blockText">
+                    <a href="./HW4/adventure.html">Click Here to Start the Adventure!</a>
+                </p>
+            </div>
+        -->
+
         <!--Link to the JS file-->
-        <script src="./HW5/script.js"></script>
+        <script src="./HW4/script.js"></script>
 
     </body>
 </html>
