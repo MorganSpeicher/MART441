@@ -1,69 +1,45 @@
-<!--
-Get user input from textboxes
-Include at least five different decisions in the story
-Use if / else if / else and/or switch statements
-Use at least one loop: for, while, or do-while
-Create and call functions that take parameters
-Have at least one function return a value
-Update styles and images from your JavaScript
-Allow the user to restart the story
-Use Generative AI to create a similar piece, and reflect on the experience
--->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Choose Your Own Adventure">
+        <meta name="description" content="Tile Matching">
         <meta name="Author" content="Morgan Speicher">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Chose Your Own Adventure</title>
+        <title>Tile Matching</title>
 
-        <link rel="stylesheet" href="./HW5/style.css">
+        <link rel="stylesheet" href="./HW6/style.css">
+        <script src="./HW6/script.js"></script>
     </head>
 
-    <body>
-        <!--Creating an image container for the hero image and text-->
-        <div class="imageContainer">
-            <img src="./HW5/images/background.jpeg" alt="hero image" style="width:100%" height="auto">
-        
-            <div class="centered">
-                Choose Your Own Adventure
-                <hr class="heroLine">
-                <div class="subHeadingText">Scroll Down to Begin</div>
+    <body onload="printTiles();">
+        <div class="coloredBlock">
+            <p class="headerBlockText">
+                Tile Matching
+            </p>
+        </div>
+
+        <div class="coloredBlock">
+            <div id="gameBoard"></div>
+        </div>
+
+        <!-- 
+        <div class="coloredBlock">
+            <div class="table">
+                <div class="tableBody">
+                    <div class="tableRow">
+                        <div class="tableCell"><img src="" id="image1" width="250" height="200" onclick="flipImage(0);"></div>
+                        <div class="tableCell"><img src="" id="image2" width="250" height="200" onclick="flipImage(1);"></div>
+                        <div class="tableCell"><img src="" id="image3" width="250" height="200" onclick="flipImage(2);"></div>
+                    </div>
+                        <div class="tableCell"><img src="" id="image4" width="250" height="200" onclick="flipImage(3);"></div>
+                        <div class="tableCell"><img src="" id="image5" width="250" height="200" onclick="flipImage(4);"></div>
+                        <div class="tableCell"><img src="" id="image6" width="250" height="200" onclick="flipImage(5);"></div>
+                    <div class="tableRow">
+
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!--Creating a "block" for the text and DOM updates to go, with a color for pazaz-->
-        <div class="coloredBlock">
-            <img src="./HW5/images/seal.png" alt="seal image" style="width:30%" height="auto">
-
-            <p class="headerBlockText">
-                A Little About The Story:
-            </p>
-            <p class="blockText">
-                Imagine you are a harbor seal living out your life in the ocean. Your ultimate goal is to live a happy life and make lots of other seal friends.
-                In this adventure, you must imagine what life is like as a big seal and make choices that pursue your ultimate goal.
-                <br>
-                "Gyu!"
-            </p>
-        </div>
-
-        <!--This block section is where the JS is targeting its updates-->
-        <div class="coloredBlock">
-            <img id="storyImage" src="./HW5/images/sealSunBathing.png" alt="seal sunbathing" style="width:30%" height="auto">
-            
-            <p class="headerBlockTextAdventure"></p>
-
-            <p class="blockTextAdventure"></p>
-
-            <input id="txtName" type="text"><br>
-            <button onclick="stepOne();" id="btnSubmit">Submit</button><br>
-
-        </div>
-
-        <!--Link to the JS file-->
-        <script src="./HW5/script.js"></script>
-
+        -->
     </body>
 </html>

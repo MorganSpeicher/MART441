@@ -1,0 +1,70 @@
+/* Extra small devices (phones, default styles) */
+.about {
+    width: 100%;
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .about {
+        width: 80%;
+    }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .about {
+        width: 70%;
+    }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .about {
+        width: 60%;
+    }
+}
+
+.coloredBlock {
+    background-color: #ffecec;
+    padding: 4rem 4rem;
+    text-align: center;
+    color: rgb(172, 110, 110);
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    margin-left: 8em;
+    margin-right: 8em;
+}
+
+.headerBlockText {
+    font-size: 6rem;
+    font-family: cursive;
+    max-width: 800px;
+    margin: 0 auto 0;
+}
+
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 0.2em;
+    row-gap: 0.5em;
+    justify-items: center;
+}
+
+/* Attempt 1
+.table {
+    display: table;
+    width: 100%;
+}
+
+.tableRow {
+    display: table-row;
+}
+
+.tableBody {
+    display: table-row-group;
+}
+
+.tableCell {
+    border: 1px solid white;
+    display: table-cell;
+    padding: 3px 10px;
+}
+*/
