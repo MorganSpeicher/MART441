@@ -1,0 +1,13 @@
+<script>
+    function loadGame() {
+        var storedData = localStorage.getItem("gameData");
+        var gameData = JSON.parse(storedData);
+    
+        document.getElementById("saved").innerHTML =
+            "Welcome back " + gameData.playerName + "<br>" +
+            "Saved Images: " + gameData.images.join(", ");
+    }
+    </script>
+    
+    <button onclick="loadGame()">Load Saved Game</button>
+    <div id="saved"></div>
