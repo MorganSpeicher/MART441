@@ -16,5 +16,5 @@ if (playerJSON) {
 //If no data was found re-route back to start page
 else {
     alert("No data found.");
-    window.location.href = "../introduction.html";
+    window.location.href = "../index.html";
 }
