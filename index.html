@@ -1,34 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="Tile Matching">
+        <meta name="description" content="View Master">
         <meta name="Author" content="Morgan Speicher">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <title>Tile Matching Introduction</title>
+        <title>View Master</title>
 
-        <link rel="stylesheet" href="./HW7/style.css">
+        <link rel="stylesheet" href="./HW8/style.css">
+        <script src="./HW8/script.js"></script>
     </head>
-
-    <body>
+    <body onload="initializeArray();">
         <div class="coloredBlock">
-            <p class="headerBlockText">
-                Tile Matching
-            </p>
 
-            <label>First Name:</label>
-            <input type="text" id="firstName">
+            <img id="image" width="400"/>
 
-            <label>Last Name:</label>
-            <input type="text" id="lastName">
+            <h2 id="title"></h2>
 
-            <label>Age:</label>
-            <input type="text" id="age">
+            <hr width="20%" color="rgb(52, 35, 14)">
 
-            <button id="startButton">Start Game</button>
+            <p id="description"></p>
+            <p id="author"></p>
+            <p id="year"></p>
+
+            <button onclick="accessInformation();">View Next</button>
         </div>
-
-        <script src="HW7/setup.js"></script>
     </body>
 </html>
