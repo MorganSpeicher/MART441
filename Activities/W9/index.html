@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Activity</title>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnHide").click(function () {
+                $(".text").slideUp();
+            });
+
+            $("#btnToggle").click(function () {
+                $("#title").fadeToggle();
+            });
+
+            $(".text").click(function () {
+                $(this).fadeOut();
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+    <h2 id="title">Hello, jQuery</h2>
+    <p class="text">This is paragraph one.</p>
+    <p class="text2">This is paragraph two.</p>
+
+    <button id="btnHide">Hide Text</button>
+    <button id="btnToggle">Toggle Title</button>
+
+</body>
+</html>

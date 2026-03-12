@@ -1,0 +1,59 @@
+body {
+    background-color: rgb(212, 203, 179);
+    color:black;
+    text-align:center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    color: rgb(106, 84, 66);
+    font-family: cursive;
+    font-size: 60px;
+    padding-top: 1em;
+
+}
+
+#largeContainer {
+    background-color: rgb(171, 154, 132);
+    margin-left: 7em;
+    margin-right: 7em;
+}
+
+#imageContainer {
+    position:relative;
+    width: 600px;
+    margin: auto;
+    padding-bottom: 1em;
+
+}
+
+#seasonImage {
+    width: 600px;
+    position: relative;
+    border: 10px solid rgb(106, 84, 66);
+}
+
+#seasonSquare {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 100px;
+    left: 225px;
+    opacity: 0.6;
+    background: green;
+}
+
+#seasonText {
+    font-size: 35px;
+    margin-top: 20px;
+    position: relative;
+    color: rgb(106, 84, 66);
+    padding-bottom: 1em;
+}
+
+/*
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+}
+*/
