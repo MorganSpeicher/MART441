@@ -1,0 +1,5 @@
+For this weeks homework I did use Gen AI. I used the AI to help me trouble shoot mostly, I had a missing "#" in my JS that was preventing the code from running. It was helpful for that because I literally could not find where the error was! I also used Gen AI to help me build out some of the functions in my JS such as creating intervals and how to actually move images and text around the page. I kind of struggled with those concepts this week and it was very helpful to have it explain in depth what each function and peice of code was doing and why it was written the way it was.
+
+I tried a button function but it didn't really work out, I also didn't like how it moved on the page alongside the text. I think that is something that I will return   back to, I just ran out of time for this assignment.
+
+I also referenced the example site for this weeks homework to help me a get a scope of what the assignment was going to look like. I read through the code making sure to undersatnd, or try to understand what was going on and then started building out my site.

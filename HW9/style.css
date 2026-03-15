@@ -21,24 +21,24 @@ h1 {
 
 #imageContainer {
     position:relative;
-    width: 600px;
+    width: 900px;
     margin: auto;
     padding-bottom: 1em;
 
 }
 
 #seasonImage {
-    width: 600px;
+    width: 900px;
     position: relative;
     border: 10px solid rgb(106, 84, 66);
 }
 
 #seasonSquare {
     position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 100px;
-    left: 225px;
+    width: 250px;
+    height: 250px;
+    top: 150px;
+    left: 320px;
     opacity: 0.6;
     background: green;
 }
