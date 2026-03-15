@@ -13,6 +13,14 @@ h1 {
 
 }
 
+h3 {
+    color: rgb(106, 84, 66);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    padding-top: 1px;
+
+}
+
 #largeContainer {
     background-color: rgb(171, 154, 132);
     margin-left: 7em;
