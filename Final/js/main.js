@@ -4,14 +4,23 @@ var bananaObject;
 var orangeObject;
 var mangoObject;
 var dragonFruitObject;
+var pineappleObject;
 var fontLoader = new THREE.FontLoader();
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var factMesh;
 var font;
 
+let loadedCount = 0;
+const totalObjects = 4;
+
+var dragControls;
+let isDragging = false;
+
+var draggableObjects = [];
+
 //Add Click Detection
-window.addEventListener('click', onClick, false);
+window.addEventListener('pointerdown', onClick, false);
 
 //Banana Fact
 function showBananaFact() {
@@ -113,7 +122,7 @@ function showMangoFact() {
     }
   );
 
-  var material = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
+  var material = new THREE.MeshBasicMaterial({ color: 0xffcc33 });
   factMesh = new THREE.Mesh(geometry, material);
 
   geometry.computeBoundingBox();
@@ -170,7 +179,47 @@ function showDragonFruitFact() {
   }, 4000);
 }
 
+function showPineappleFact() {
+
+  if (factMesh) {
+    scene.remove(factMesh);
+    factMesh.geometry.dispose();
+    factMesh.material.dispose();
+    factMesh = null;
+  }
+
+  var geometry = new THREE.TextGeometry(
+    "A pineapple is not a single fruit, but a group of berries that fuse together.",
+    {
+      font: font,
+      size: 5,
+      height: 0.5,
+      curveSegments: 12
+    }
+  );
+
+  var material = new THREE.MeshBasicMaterial({ color: 0xffd34d });
+  factMesh = new THREE.Mesh(geometry, material);
+
+  geometry.computeBoundingBox();
+
+  var width = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+
+  factMesh.position.set(-width / 2, 20, 0);
+
+  scene.add(factMesh);
+
+  setTimeout(() => {
+    if (factMesh) {
+      scene.remove(factMesh);
+      factMesh = null;
+    }
+  }, 4000);
+}
+
 function onClick(event) {
+
+  if (isDragging) return;
 
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -182,6 +231,7 @@ function onClick(event) {
   if (orangeObject) objects.push(orangeObject);
   if (mangoObject) objects.push(mangoObject);
   if (dragonFruitObject) objects.push(dragonFruitObject);
+  if (pineappleObject) objects.push(pineappleObject);
 
 
   let intersects = raycaster.intersectObjects(objects, true);
@@ -209,6 +259,10 @@ function onClick(event) {
 
     if (obj.userData.type === "dragonFruit") {
       showDragonFruitFact();
+    }
+
+    if (obj.userData.type === "pineapple") {
+      showPineappleFact();
     }
   }
 }
@@ -286,6 +340,11 @@ function animate() {
     dragonFruitObject.rotation.y += 0.003;
   }
 
+  if (pineappleObject) {
+    pineappleObject.rotation.x += 0.004;
+    pineappleObject.rotation.y += 0.004;
+  }
+
   controls.update();
   renderer.render(scene, camera);
 }
@@ -295,7 +354,7 @@ function animate() {
 
 function getScene() {
   var scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xFFF9C4);
+  //scene.background = new THREE.Color(0xFFF9C4);
   return scene;
 }
 
@@ -348,6 +407,10 @@ function getRenderer() {
 
 function getControls(camera, renderer) {
   var controls = new THREE.TrackballControls(camera, renderer.domElement);
+
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+
   controls.zoomSpeed = 0.4;
   controls.panSpeed = 0.4;
   return controls;
@@ -374,6 +437,7 @@ function loadBanana() {
 
     bananaObject = object;
     scene.add(object);
+    onObjectLoaded();
   });
 }
 
@@ -397,6 +461,7 @@ function loadOrange() {
 
     orangeObject = object;
     scene.add(object);
+    onObjectLoaded();
   });
 }
 
@@ -420,6 +485,7 @@ function loadMango() {
 
     mangoObject = object;
     scene.add(object);
+    onObjectLoaded();
   });
 }
 
@@ -443,10 +509,42 @@ function loadDragonFruit() {
 
     dragonFruitObject = object;
     scene.add(object);
+    onObjectLoaded();
+  });
+}
+
+function loadPineapple() {
+  loader = new THREE.OBJLoader();
+  loader.load('Final/models/pineapple.obj', function (object) {
+
+    object.traverse(function(child) {
+      if (child.isMesh) {
+        child.material = new THREE.MeshPhongMaterial({
+          color: 0xffd34d
+        });
+      }
+    });
+
+    object.rotation.z = Math.PI;
+    object.position.set(-40, 60, -50);
+    object.scale.set(20, 20, 20);
+
+    object.userData.type = "pineapple";
+
+    pineappleObject = object;
+    scene.add(object);
+    onObjectLoaded();
   });
 }
 
 var scene = getScene();
+
+//Load Background Image
+var loader = new THREE.TextureLoader();
+loader.load('Final/textures/Table.jpeg', function (texture) {
+  scene.background = texture;
+});
+
 var camera = getCamera();
 var light = getLight(scene);
 var renderer = getRenderer();
@@ -500,4 +598,38 @@ loadBanana();
 loadOrange();
 loadMango();
 loadDragonFruit();
+loadPineapple();
 animate();
+
+//Create Drag Controls
+var dragControls; // GLOBAL
+
+function setupDragControls() {
+  draggableObjects = [];
+
+  if (bananaObject) draggableObjects.push(bananaObject);
+  if (orangeObject) draggableObjects.push(orangeObject);
+  if (mangoObject) draggableObjects.push(mangoObject);
+  if (dragonFruitObject) draggableObjects.push(dragonFruitObject);
+
+  dragControls = new THREE.DragControls(
+    draggableObjects,
+    camera,
+    renderer.domElement
+  );
+
+  dragControls.addEventListener('dragstart', function () {
+    controls.enabled = false;
+  });
+
+  dragControls.addEventListener('dragend', function () {
+    controls.enabled = true;
+  });
+}
+
+function onObjectLoaded() {
+  loadedCount++;
+  if (loadedCount === totalObjects) {
+    setupDragControls();
+  }
+}
