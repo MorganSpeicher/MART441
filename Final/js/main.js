@@ -1,10 +1,12 @@
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
 var bananaObject;
 var orangeObject;
 var mangoObject;
 var dragonFruitObject;
 var pineappleObject;
+
 var fontLoader = new THREE.FontLoader();
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
@@ -12,15 +14,17 @@ var factMesh;
 var font;
 
 let loadedCount = 0;
-const totalObjects = 4;
+const totalObjects = 5;
 
 var dragControls;
 let isDragging = false;
 
 var draggableObjects = [];
+var rotatingCubes = [];
 
 //Add Click Detection
 window.addEventListener('pointerdown', onClick, false);
+window.addEventListener('dblclick', onDoubleClick, false);
 
 //Banana Fact
 function showBananaFact() {
@@ -267,6 +271,79 @@ function onClick(event) {
   }
 }
 
+function onDoubleClick(event) {
+
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+
+  let objects = [
+    bananaObject,
+    orangeObject,
+    mangoObject,
+    dragonFruitObject,
+    pineappleObject
+  ].filter(Boolean);
+
+  let intersects = raycaster.intersectObjects(objects, true);
+
+  if (intersects.length > 0) {
+
+    let obj = intersects[0].object;
+
+    while (obj.parent && !obj.userData.type) {
+      obj = obj.parent;
+    }
+
+    if (obj.userData.type) {
+      replaceWithCubes(obj);
+    }
+  }
+}
+
+function replaceWithCubes(object) {
+
+  let color = 0xffffff;
+
+  // match fruit color
+  switch (object.userData.type) {
+    case "banana": color = 0xffd54f; break;
+    case "orange": color = 0xff8c00; break;
+    case "mango": color = 0xffcc33; break;
+    case "dragonFruit": color = 0xe60073; break;
+    case "pineapple": color = 0xffd34d; break;
+  }
+
+  // remove fruit
+  scene.remove(object);
+
+  // create 5 cubes
+  for (let i = 0; i < 5; i++) {
+
+    let geometry = new THREE.BoxGeometry(8, 8, 8);
+    let material = new THREE.MeshPhongMaterial({ color });
+
+    let cube = new THREE.Mesh(geometry, material);
+
+    cube.position.copy(object.position);
+
+    // slight random spread
+    cube.position.x += (Math.random() - 0.5) * 30;
+    cube.position.y += (Math.random() - 0.5) * 30;
+    cube.position.z += (Math.random() - 0.5) * 30;
+
+    cube.userData.rotSpeed = {
+      x: Math.random() * 0.01,
+      y: Math.random() * 0.01
+    };
+
+    scene.add(cube);
+
+    rotatingCubes.push(cube);
+  }
+}
+
 //Add Light
 var light = new THREE.PointLight(0xffd27f, 0.7, 200);
 light.position.set(50, 50, 50);
@@ -320,6 +397,8 @@ fontLoader.load('Final/fonts/Helvetiker_Regular.typeface.json', function(f) {
 function animate() {
   requestAnimationFrame(animate);
 
+  if (!isDragging) controls.update();
+
   if (bananaObject) {
     bananaObject.rotation.x += 0.005;
     bananaObject.rotation.y += 0.005;
@@ -344,6 +423,11 @@ function animate() {
     pineappleObject.rotation.x += 0.004;
     pineappleObject.rotation.y += 0.004;
   }
+
+  rotatingCubes.forEach(cube => {
+    cube.rotation.x += cube.userData.rotSpeed.x;
+    cube.rotation.y += cube.userData.rotSpeed.y;
+  });
 
   controls.update();
   renderer.render(scene, camera);
@@ -605,12 +689,14 @@ animate();
 var dragControls; // GLOBAL
 
 function setupDragControls() {
-  draggableObjects = [];
 
-  if (bananaObject) draggableObjects.push(bananaObject);
-  if (orangeObject) draggableObjects.push(orangeObject);
-  if (mangoObject) draggableObjects.push(mangoObject);
-  if (dragonFruitObject) draggableObjects.push(dragonFruitObject);
+  draggableObjects = [
+    bananaObject,
+    orangeObject,
+    mangoObject,
+    dragonFruitObject,
+    pineappleObject
+  ].filter(Boolean);
 
   dragControls = new THREE.DragControls(
     draggableObjects,
@@ -619,10 +705,12 @@ function setupDragControls() {
   );
 
   dragControls.addEventListener('dragstart', function () {
+    isDragging = true;
     controls.enabled = false;
   });
 
   dragControls.addEventListener('dragend', function () {
+    isDragging = false;
     controls.enabled = true;
   });
 }
