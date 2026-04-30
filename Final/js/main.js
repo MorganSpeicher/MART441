@@ -21,9 +21,10 @@ let isDragging = false;
 
 var draggableObjects = [];
 var rotatingCubes = [];
+var leafCubes = [];
 
 //Add Click Detection
-window.addEventListener('pointerdown', onClick, false);
+window.addEventListener('click', onClick, false);
 window.addEventListener('dblclick', onDoubleClick, false);
 
 //Banana Fact
@@ -221,6 +222,7 @@ function showPineappleFact() {
   }, 4000);
 }
 
+//Click Detection for Fruit Facts
 function onClick(event) {
 
   if (isDragging) return;
@@ -271,6 +273,7 @@ function onClick(event) {
   }
 }
 
+//Click Detection to "Cut" Fruit
 function onDoubleClick(event) {
 
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -284,7 +287,7 @@ function onDoubleClick(event) {
     mangoObject,
     dragonFruitObject,
     pineappleObject
-  ].filter(Boolean);
+  ]//.filter(Boolean);
 
   let intersects = raycaster.intersectObjects(objects, true);
 
@@ -302,6 +305,7 @@ function onDoubleClick(event) {
   }
 }
 
+//Function to replace objects with cubes after being double-clicked
 function replaceWithCubes(object) {
 
   let color = 0xffffff;
@@ -344,6 +348,38 @@ function replaceWithCubes(object) {
   }
 }
 
+//Create "leaf" cubes
+function createLeafCubes(count = 30) {
+
+  for (let i = 0; i < count; i++) {
+
+    let geometry = new THREE.BoxGeometry(3, 3, 3);
+
+    let material = new THREE.MeshPhongMaterial({
+      color: 0x2e7d32 // leaf green
+    });
+
+    let cube = new THREE.Mesh(geometry, material);
+
+    // random position in space
+    cube.position.set(
+      (Math.random() - 0.5) * 200,
+      (Math.random() - 0.5) * 120,
+      (Math.random() - 0.5) * 200
+    );
+
+    // random rotation speed
+    cube.userData.rotSpeed = {
+      x: Math.random() * 0.02,
+      y: Math.random() * 0.02,
+      z: Math.random() * 0.02
+    };
+
+    scene.add(cube);
+    leafCubes.push(cube);
+  }
+}
+
 //Moves Shadow HTML Text
 function updateShadowWithCamera() {
   const shadow = document.getElementById('shadowText');
@@ -373,49 +409,84 @@ scene.add(fillLight);
 fontLoader.load('Final/fonts/Helvetiker_Regular.typeface.json', function(f) {
   font = f;
 
-  var textGeometry = new THREE.TextGeometry('Welcome to the Fruit Bowl', {
-    font: font,
+  const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+  // Text Line 1
+  const textGeometry1 = new THREE.TextGeometry('Welcome to the Fruit Bowl', {
+    font,
     size: 5,
-    height: 1,
-    curveSegments: 12
+    height: 1
   });
 
-  var textGeometry1 = new THREE.TextGeometry('Click Objects and Drag Mouse to Interact', {
-    font: font,
-    size: 3,
-    height: 1,
-    curveSegments: 12
-  });
-
-  var textGeometry2 = new THREE.TextGeometry('Double-Click Objects to Cut Fruit', {
-    font: font,
-    size: 3,
-    height: 1,
-    curveSegments: 12
-  });
-
-  var textMaterial = new THREE.MeshBasicMaterial({ color: 0x66ccff });
-
-  var textMesh = new THREE.Mesh(textGeometry, textMaterial);
-  var textMesh1 = new THREE.Mesh(textGeometry1, textMaterial);
-  var textMesh2 = new THREE.Mesh(textGeometry2, textMaterial);
-
-  textGeometry.computeBoundingBox();
+  const textMesh1 = new THREE.Mesh(textGeometry1, material);
   textGeometry1.computeBoundingBox();
+
+  const width1 = textGeometry1.boundingBox.max.x - textGeometry1.boundingBox.min.x;
+  textMesh1.position.set(-width1 / 2, 5, 0);
+
+  // Text Line 2
+  const textGeometry2 = new THREE.TextGeometry('Click Objects and Drag Mouse to Interact', {
+    font,
+    size: 3,
+    height: 1
+  });
+
+  const textMesh2 = new THREE.Mesh(textGeometry2, material);
   textGeometry2.computeBoundingBox();
 
-  var width1 = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
-  var width2 = textGeometry1.boundingBox.max.x - textGeometry1.boundingBox.min.x;
-  var width3 = textGeometry2.boundingBox.max.x - textGeometry2.boundingBox.min.x;
+  const width2 = textGeometry2.boundingBox.max.x - textGeometry2.boundingBox.min.x;
+  textMesh2.position.set(-width2 / 2, 0, 0);
 
-  // center each line around x = 0
-  textMesh.position.set(-width1 / 2, 5, 0);
-  textMesh1.position.set(-width2 / 2, 0, 0);
-  textMesh2.position.set(-width2 / 2.5, -5, 0);
+  // Text Line 3
+  const textGeometry3 = new THREE.TextGeometry('Double-Click Objects to Cut Fruit', {
+    font,
+    size: 3,
+    height: 1
+  });
 
-  scene.add(textMesh);
+  const textMesh3 = new THREE.Mesh(textGeometry3, material);
+  textGeometry3.computeBoundingBox();
+
+  const width3 = textGeometry3.boundingBox.max.x - textGeometry3.boundingBox.min.x;
+  textMesh3.position.set(-width3 / 2, -5, 0);
+
+  // add text
   scene.add(textMesh1);
   scene.add(textMesh2);
+  scene.add(textMesh3);
+
+  // Rounded Background Panel
+
+  const panelWidth = Math.max(width1, width2, width3) + 20;
+  const panelHeight = 22;
+
+  const shape = new THREE.Shape();
+  const r = 5;
+
+  shape.moveTo(-panelWidth/2 + r, -panelHeight/2);
+  shape.lineTo(panelWidth/2 - r, -panelHeight/2);
+  shape.quadraticCurveTo(panelWidth/2, -panelHeight/2, panelWidth/2, -panelHeight/2 + r);
+  shape.lineTo(panelWidth/2, panelHeight/2 - r);
+  shape.quadraticCurveTo(panelWidth/2, panelHeight/2, panelWidth/2 - r, panelHeight/2);
+  shape.lineTo(-panelWidth/2 + r, panelHeight/2);
+  shape.quadraticCurveTo(-panelWidth/2, panelHeight/2, -panelWidth/2, panelHeight/2 - r);
+  shape.lineTo(-panelWidth/2, -panelHeight/2 + r);
+  shape.quadraticCurveTo(-panelWidth/2, -panelHeight/2, -panelWidth/2 + r, -panelHeight/2);
+
+  const panelGeometry = new THREE.ShapeGeometry(shape);
+
+  const panelMaterial = new THREE.MeshBasicMaterial({
+    color: 0x003366,
+    transparent: true,
+    opacity: 0.75
+  });
+
+  const panel = new THREE.Mesh(panelGeometry, panelMaterial);
+
+  // Behind Text
+  panel.position.set(0, 3, -2);
+
+  scene.add(panel);
 });
 
 //Animate the Shapes Then Render the Scene
@@ -454,8 +525,15 @@ function animate() {
     cube.rotation.y += cube.userData.rotSpeed.y;
   });
 
+  leafCubes.forEach(cube => {
+    cube.rotation.x += cube.userData.rotSpeed.x;
+    cube.rotation.y += cube.userData.rotSpeed.y;
+    cube.rotation.z += cube.userData.rotSpeed.z;
+  });
+
   updateShadowWithCamera();
-  controls.update();
+
+  //controls.update();
   renderer.render(scene, camera);
 }
 
@@ -491,7 +569,6 @@ function getLight(scene) {
   scene.add(ambientLight);
   return light;
 }
-
 
 //Generate the Renderer to be Used in the Scene
 
@@ -535,6 +612,8 @@ function loadBanana() {
 
     object.traverse(function(child) {
       if (child.isMesh) {
+        child.userData.draggable = true;
+
         child.material = new THREE.MeshPhongMaterial({
           color: 0xF6D365
         });
@@ -558,6 +637,8 @@ function loadOrange() {
 
     object.traverse(function(child) {
       if (child.isMesh) {
+        child.userData.draggable = true;
+
         child.material = new THREE.MeshPhongMaterial({
           color: 0xff8c00
         });
@@ -582,6 +663,8 @@ function loadMango() {
 
     object.traverse(function(child) {
       if (child.isMesh) {
+        child.userData.draggable = true;
+
         child.material = new THREE.MeshPhongMaterial({
           color: 0xffcc33
         });
@@ -606,6 +689,8 @@ function loadDragonFruit() {
 
     object.traverse(function(child) {
       if (child.isMesh) {
+        child.userData.draggable = true;
+
         child.material = new THREE.MeshPhongMaterial({
           color: 0xe60073
         });
@@ -630,6 +715,8 @@ function loadPineapple() {
 
     object.traverse(function(child) {
       if (child.isMesh) {
+        child.userData.draggable = true;
+
         child.material = new THREE.MeshPhongMaterial({
           color: 0xffd34d
         });
@@ -650,13 +737,8 @@ function loadPineapple() {
 
 var scene = getScene();
 
-/*
-//Load Background Image
-var loader = new THREE.TextureLoader();
-loader.load('Final/textures/Table.jpeg', function (texture) {
-  scene.background = texture;
-});
-*/
+//Load Leaf Cubes
+createLeafCubes(40);
 
 var camera = getCamera();
 var light = getLight(scene);
@@ -670,42 +752,40 @@ camera.add(listener);
 var sound = new THREE.Audio(listener);
 var audioLoader = new THREE.AudioLoader();
 
+let musicStarted = false;
+
 audioLoader.load('Final/music/Bloopin.mp3', function(buffer) {
+
   sound.setBuffer(buffer);
   sound.setLoop(true);
   sound.setVolume(0.5);
 
-  // try to start (may be blocked)
-  sound.play();
+  // TRY autoplay (may be blocked)
+  sound.play().then(() => {
+    musicStarted = true;
+    button.innerHTML = "Pause Music";
+  }).catch(() => {
+    console.log("Autoplay blocked — waiting for user gesture");
+  });
+
 });
-
-function startAudioOnGesture() {
-  // resumes WebAudio context
-  camera.children[0].context.resume();
-
-  if (!sound.isPlaying) {
-    sound.play();
-  }
-
-  window.removeEventListener('click', startAudioOnGesture);
-  window.removeEventListener('keydown', startAudioOnGesture);
-}
 
 //Background Music Stop Button
 var button = document.getElementById("musicBtn");
 
 button.addEventListener("click", function () {
-  if (sound.isPlaying) {
-    sound.pause();
-    button.textContent = "Play Music";
-  } else {
+
+  // ensure audio context is active
+  listener.context.resume();
+
+  if (!sound.isPlaying) {
     sound.play();
-    button.textContent = "Pause Music";
+    button.innerHTML = "Pause Music";
+  } else {
+    sound.pause();
+    button.innerHTML = "Play Music";
   }
 });
-
-window.addEventListener('click', startAudioOnGesture);
-window.addEventListener('keydown', startAudioOnGesture);
 
 loadBanana();
 loadOrange();
@@ -719,13 +799,23 @@ var dragControls; // GLOBAL
 
 function setupDragControls() {
 
-  draggableObjects = [
-    bananaObject,
-    orangeObject,
-    mangoObject,
-    dragonFruitObject,
-    pineappleObject
-  ].filter(Boolean);
+  draggableObjects = [];
+
+  function addMeshes(obj) {
+    obj.traverse(child => {
+      if (child.isMesh) {
+        draggableObjects.push(child);
+      }
+    });
+  }
+
+  addMeshes(bananaObject);
+  addMeshes(orangeObject);
+  addMeshes(mangoObject);
+  addMeshes(dragonFruitObject);
+  addMeshes(pineappleObject);
+
+  console.log("FINAL DRAG TARGETS:", draggableObjects);
 
   dragControls = new THREE.DragControls(
     draggableObjects,
@@ -733,12 +823,12 @@ function setupDragControls() {
     renderer.domElement
   );
 
-  dragControls.addEventListener('dragstart', function () {
+  dragControls.addEventListener('dragstart', () => {
     isDragging = true;
     controls.enabled = false;
   });
 
-  dragControls.addEventListener('dragend', function () {
+  dragControls.addEventListener('dragend', () => {
     isDragging = false;
     controls.enabled = true;
   });
@@ -746,7 +836,23 @@ function setupDragControls() {
 
 function onObjectLoaded() {
   loadedCount++;
+
   if (loadedCount === totalObjects) {
-    setupDragControls();
+    setTimeout(() => {
+      setupDragControls();
+    }, 100);
   }
 }
+
+//De-Bugging
+console.log("DragControls initialized", draggableObjects);
+console.log(THREE.DragControls);
+console.log(THREE.REVISION);
+
+scene.traverse(obj => {
+  if (obj.isMesh) console.log("Mesh:", obj.name);
+});
+
+dragControls.addEventListener('hoveron', e => {
+  console.log("Hover:", e.object.name);
+});
