@@ -344,6 +344,19 @@ function replaceWithCubes(object) {
   }
 }
 
+//Moves Shadow HTML Text
+function updateShadowWithCamera() {
+  const shadow = document.getElementById('shadowText');
+
+  if (!shadow) return;
+
+  // use camera rotation to shift text
+  let x = camera.rotation.y * 200;
+  let y = camera.rotation.x * 200;
+
+  shadow.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
+}
+
 //Add Light
 var light = new THREE.PointLight(0xffd27f, 0.7, 200);
 light.position.set(50, 50, 50);
@@ -374,23 +387,35 @@ fontLoader.load('Final/fonts/Helvetiker_Regular.typeface.json', function(f) {
     curveSegments: 12
   });
 
+  var textGeometry2 = new THREE.TextGeometry('Double-Click Objects to Cut Fruit', {
+    font: font,
+    size: 3,
+    height: 1,
+    curveSegments: 12
+  });
+
   var textMaterial = new THREE.MeshBasicMaterial({ color: 0x66ccff });
 
   var textMesh = new THREE.Mesh(textGeometry, textMaterial);
   var textMesh1 = new THREE.Mesh(textGeometry1, textMaterial);
+  var textMesh2 = new THREE.Mesh(textGeometry2, textMaterial);
 
   textGeometry.computeBoundingBox();
   textGeometry1.computeBoundingBox();
+  textGeometry2.computeBoundingBox();
 
   var width1 = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
   var width2 = textGeometry1.boundingBox.max.x - textGeometry1.boundingBox.min.x;
+  var width3 = textGeometry2.boundingBox.max.x - textGeometry2.boundingBox.min.x;
 
   // center each line around x = 0
   textMesh.position.set(-width1 / 2, 5, 0);
   textMesh1.position.set(-width2 / 2, 0, 0);
+  textMesh2.position.set(-width2 / 2.5, -5, 0);
 
   scene.add(textMesh);
   scene.add(textMesh1);
+  scene.add(textMesh2);
 });
 
 //Animate the Shapes Then Render the Scene
@@ -429,6 +454,7 @@ function animate() {
     cube.rotation.y += cube.userData.rotSpeed.y;
   });
 
+  updateShadowWithCamera();
   controls.update();
   renderer.render(scene, camera);
 }
@@ -470,16 +496,17 @@ function getLight(scene) {
 //Generate the Renderer to be Used in the Scene
 
 function getRenderer() {
-  // Create the canvas with a renderer
   var renderer = new THREE.WebGLRenderer({
-    antialias: true
+    antialias: true,
+    alpha: true
   });
-  // Add support for retina displays
+
+  renderer.setClearColor(0x000000, 0); // transparent background
+
   renderer.setPixelRatio(window.devicePixelRatio);
-  // Specify the size of the canvas
   renderer.setSize(window.innerWidth, window.innerHeight);
-  // Add the canvas to the DOM
   document.body.appendChild(renderer.domElement);
+
   return renderer;
 }
 
@@ -623,11 +650,13 @@ function loadPineapple() {
 
 var scene = getScene();
 
+/*
 //Load Background Image
 var loader = new THREE.TextureLoader();
 loader.load('Final/textures/Table.jpeg', function (texture) {
   scene.background = texture;
 });
+*/
 
 var camera = getCamera();
 var light = getLight(scene);
