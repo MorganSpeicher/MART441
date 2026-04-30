@@ -52,7 +52,7 @@ html, body {
 body {
     overflow: hidden;
 
-    background-image: url('/Final/textures/Table.jpeg');
+    background-image: url('../textures/Table.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
